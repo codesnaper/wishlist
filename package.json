@@ -1,0 +1,18 @@
+{
+  "name": "sample-graphql",
+  "version": "1.0.0",
+  "description": "Sample graph ql express server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js"
+  },
+  "author": "shubham khandelwal",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-graphql": "^0.11.0",
+    "graphql": "^15.3.0",
+    "lodash": "^4.17.20"
+  }
+}
