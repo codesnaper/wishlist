@@ -37,8 +37,38 @@ const rootQuery = new GraphQLObjectType({
     })
   });
 
+  const Mutation = new GraphQLObjectType({
+    name: "mutation",
+    description:"Changing data",
+    fields: {
+      createEvent: {
+        type: eventType.eventSchema,
+        args: {
+          name: {
+            type: GraphQLString,
+          },
+          endDate: {
+            type: GraphQLString
+          },
+          organiserid: {
+            type: graphql.GraphQLInt,
+          }
+          
+        },
+        resolve(parent,args){
+          let event = {
+            name: args.name,
+            endDate: args.endDate,
+            organiserid: args.organiserid,
+          }
+          return event;
+        }
+      }
+    }
+  });
   
   
   module.exports = new GraphQLSchema({
-    query:rootQuery
+    query:rootQuery,
+    mutation: Mutation,
   })
