@@ -18,7 +18,7 @@ const eventType = new GraphQLObjectType({
   description: 'Event Schema',
   fields: ()=>({
     id: {type:GraphQLID},
-    name:{type: GraphQLString},
+    name:{type: new graphql.GraphQLNonNull(GraphQLString)},
     endDate:{type: GraphQLString},
     wish:{
       type: new graphql.GraphQLList(wishSchema.wishSchema),
