@@ -9,12 +9,12 @@ const userType = require('./schema/user');
 var _ = require('lodash');
 //Root query
 const rootQuery = new GraphQLObjectType({
-    name: "Event_ROOT_Query",
+    name: "Wish_Bucket",
     description: "Starting point of query",
     fields:()=>({
       event: {
         type: eventType.eventSchema,
-        args:{id:{type:GraphQLString}},
+        args:{id:{type: graphql.GraphQLInt}},
         resolve(parent,args){
           //get and return data from datasource
           return _.find(eventData.data,{id:args.id});
@@ -23,8 +23,7 @@ const rootQuery = new GraphQLObjectType({
       wish:{
           type: wishType.wishSchema,
           args:{id:{type:graphql.GraphQLInt}},
-          resolve(parent,args){
-              
+          resolve(parent,args){  
               return _.find(wishData.data,{id:args.id});
           }
       },
@@ -37,6 +36,8 @@ const rootQuery = new GraphQLObjectType({
     }
     })
   });
+
+  
   
   module.exports = new GraphQLSchema({
     query:rootQuery
