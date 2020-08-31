@@ -1,9 +1,9 @@
 const mongodb = require('mongoose');
 
-const userContribution = new mongodb.Schema({
-    userId: Number,
-    wishId: Number,
+const participant = new mongodb.Schema({
+    userId: String,
+    wishId: String,
     amount: Number,
 })
 
-module.exports = mongodb.model('participant',userContribution);
+module.exports = mongodb.model('participant',participant);

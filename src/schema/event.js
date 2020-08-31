@@ -4,6 +4,9 @@ const wishSchema= require('./wish');
 const userType = require('./user');
 const userData = require('./../data/user');
 var _ = require('lodash');
+const wishModel = require('../model/wishModel');
+const mongodb = require('mongoose');
+const userModal = require('../model/userModal');
 
 const {
   GraphQLObjectType,
@@ -17,19 +20,21 @@ const eventType = new GraphQLObjectType({
   name: 'Event',
   description: 'Event Schema',
   fields: ()=>({
-    id: {type:GraphQLID},
+    _id: {type:GraphQLID},
     name:{type: new graphql.GraphQLNonNull(GraphQLString)},
     endDate:{type: GraphQLString},
+    code:{type:GraphQLInt},
+    organiserid:{type: GraphQLString},
     wish:{
       type: new graphql.GraphQLList(wishSchema.wishSchema),
       resolve(parent,args){
-        return _.filter(wishData.data,{eventId:parent.id});
+        return wishModel.find({eventId: parent._id}).then(data=>data).catch(err=> err);
       }
     },
     organizer:{
       type: userType.userSchema,
       resolve(parent,args){
-        return _.find(userData.data,{id:parent.organiserid});
+        return userModal.findById(new mongodb.Types.ObjectId(parent.organiserid))
       }
     }
   })

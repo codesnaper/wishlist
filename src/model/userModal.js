@@ -8,4 +8,4 @@ const userSchema = new mongodb.Schema({
     isExternal: Boolean
 })
 
-module.exports = mongodb.model('user',userSchema);
+module.exports = mongodb.model('user',userSchema,"user");

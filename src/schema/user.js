@@ -3,6 +3,7 @@ const {
   GraphQLObjectType,
   GraphQLID,
   GraphQLString,
+  GraphQLList,
   GraphQLInt
 } = graphql;
 
@@ -11,7 +12,7 @@ const userType = new GraphQLObjectType({
   name: 'User',
   description: 'User Schema',
   fields: ()=>({
-    id: {type:GraphQLInt},
+    id: {type:GraphQLID},
     name:{type: GraphQLString},
     contact:{type: GraphQLString},
     email: {type: GraphQLString},

@@ -6,6 +6,7 @@ const userData = require('./../data/user');
 const userContData = require('./../data/userCont');
 const userContSchema = require('./userContribution');
 var _ = require('lodash');
+const userContributionModal = require('../model/userContributionModal');
 
 
 const {
@@ -33,7 +34,7 @@ const wishType = new GraphQLObjectType({
       participant:{
         type: new graphql.GraphQLList(userContSchema.userContributionSchema),
         resolve(parent,args){
-          return  _.filter(userContData.data,{wishId:parent.id});
+          return  userContributionModal.find({wishId:parent.id}).then(data=>data).catch(err=> err);
         },
       },
     })

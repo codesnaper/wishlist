@@ -4,7 +4,8 @@ const userData = require('./../data/user');
 var _ = require('lodash');
 const wishData = require('./../data/wish');
 const wishSchema= require('./wish');
-
+const userModal = require('../model/userModal');
+const mongodb = require('mongoose');
 const {
   GraphQLObjectType,
   GraphQLID,
@@ -17,14 +18,14 @@ const userContType = new GraphQLObjectType({
   name: 'UserContribution',
   description: 'User Contribution Schema',
   fields: ()=>({
-    id: {type:GraphQLInt},
-    userId: {type: GraphQLInt},
-    wishId: {type: GraphQLInt},
+    id: {type:GraphQLID},
+    userId: {type: GraphQLString},
+    wishId: {type: GraphQLString},
     amount: {type: GraphQLInt},
     user: {
-      type: new graphql.GraphQLList(userType.userSchema),
+      type: userType.userSchema,
       resolve(parent,args){
-        return _.filter(userData.data,{id: parent.userId});
+        return userModal.findById(new mongodb.Types.ObjectId(parent.userId)).then(data=>data).catch(err=> err);
       }
     },
     wish:{
